@@ -1,3 +1,5 @@
+const basicAuth = require('express-basic-auth');
+
 var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
@@ -19,6 +21,14 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+
+
+app.use(basicAuth({
+  users: { 'user': 'pass' },
+  challenge: true,
+  realm: 'foo',
+}))
+
 
 app.use('/', indexRouter);
 
